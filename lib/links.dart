@@ -69,18 +69,19 @@ class linkdeskState extends State <linkdesk> {
   }
 
   Widget formSetup(BuildContext context){
+    var s=MediaQuery.of(context).size;
     return new Form(
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(right: 20,top:10),
-            width: 200,
-            height: 80,
-            child: Text("میز خدمت آموزش و پرورش بوکان"),
+            padding: EdgeInsets.only(right: 5,top:10),
+            width: s.width*.95,
+            height: 60,
+            //child: Text("میز خدمت آموزش و پرورش بوکان"),
             decoration: BoxDecoration(
               //border: Radius.circular(10),
                 image: DecorationImage(
-                  image: AssetImage('assets/images/Dokme.png'),
+                  image: AssetImage('assets/images/Banner_desk.png'),
                   fit: BoxFit.fill,
                 )
             ),
@@ -90,29 +91,55 @@ class linkdeskState extends State <linkdesk> {
               child: Row(
                   children: <Widget>[
                     Container(
-
-                      padding: EdgeInsets.only(right: 20,top:5),
+                      padding: EdgeInsets.only(right: 10,top:5),
                       child: Card
                         (
                            child: Column(
                              mainAxisSize: MainAxisSize.min,
                              children: <Widget>[
                                Container(
-                                 width: 300,
-                                 child: Text("links1"),
+                                 padding: EdgeInsets.only(right: 20,top:5),
+                                 width: (s.width*0.9)/2,
+                                 height: 150,
+                                 
+                                 child: new RaisedButton(
+                                     child: Image.asset('assets/images/mali.png'),
+                                     onPressed: (){
+
+                                     },
+                                     color: Colors.white,
+                                     highlightColor: Colors.white,
+                                 ),
+                                 decoration: BoxDecoration(
+                                   //border: Radius.circular(10),
+                                     image: DecorationImage(
+                                       image: AssetImage('assets/images/mali.png'),
+                                       fit: BoxFit.fill,
+                                     )
+                                 ),
                                )
                              ],
                            ),
                       )
                     ),
                     Container(
+                        padding: EdgeInsets.only(right: 5,top:5),
                         child: Card
                           (
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Container(
-                                child: Text("links2"),
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  //border: Radius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/prs.png'),
+                                      fit: BoxFit.fill,
+                                    )
+                                ),
                               )
                             ],
                           ),
@@ -121,6 +148,60 @@ class linkdeskState extends State <linkdesk> {
                   ]
               )
           ),
+          SizedBox(height: 5,),
+          Container(
+              child: Row(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(right: 10,top:5),
+                        child: Card
+                          (
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  //border: Radius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/stud.png'),
+                                      fit: BoxFit.fill,
+                                    )
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(right: 5,top:5),
+                        child: Card
+                          (
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                decoration: BoxDecoration(
+                                  //border: Radius.circular(10),
+                                    image: DecorationImage(
+                                      image: AssetImage('assets/images/region.png'),
+                                      fit: BoxFit.fill,
+                                    )
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                  ]
+              )
+          ),
+
         ],
       ),
     );
