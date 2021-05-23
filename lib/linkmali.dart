@@ -1,11 +1,15 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'test123.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'web_view_link.dart';
 test123 t=new test123();
 
 class malilinks extends StatelessWidget {
+  final _links=['www.google.com'];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,6 +50,32 @@ class linkdata {
     );
   }
 }
+/*launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(Uri.encodeFull(url), forceWebView: true);
+  } else {
+    throw 'Could not launch $url';
+  }
+}*/
+Widget _launchStatus(BuildContext context, AsyncSnapshot<void> snapshot) {
+  if (snapshot.hasError) {
+    return Text('Error: ${snapshot.error}');
+  } else {
+    return const Text('');
+  }
+}
+Future<void> _launchInBrowser(String url) async {
+  if (await canLaunch(url)) {
+    await launch(
+      url,
+      forceSafariVC: false,
+      forceWebView: false,
+      headers: <String, String>{'my_header_key': 'my_header_value'},
+    );
+  } else {
+    throw 'Could not launch $url';
+  }
+}
 
 class MaliLinkView extends StatefulWidget {
 
@@ -54,9 +84,10 @@ class MaliLinkView extends StatefulWidget {
 }
 
 class MaliLinkViewState extends State {
-
+  bool isLoaded;
+  Future<void> _launched;
   final String apiURL = t.getaddress() +'LinksMali.php';
-
+  final _key = UniqueKey();
   Future<List<linkdata>> fetchlinks() async {
 
     var response = await http.get(apiURL);
@@ -75,6 +106,16 @@ class MaliLinkViewState extends State {
       throw Exception('Failed to load data from Server.');
     }
   }
+  void _handleURLButtonPress(BuildContext context, String url) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => WebViewContainer(url)));
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isLoaded=false;
+  }
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -82,22 +123,24 @@ class MaliLinkViewState extends State {
       child: Scaffold(
 
       body: FutureBuilder<List<linkdata>>(
-      future: fetchlinks(),
+        future: fetchlinks(),
       builder: (context, snapshot) {
+
 
         if (!snapshot.hasData) return Center(
             child: CircularProgressIndicator()
         );
-
         return ListView(
           children: snapshot.data
               .map((data) => Column(children: <Widget>[
             GestureDetector(
               onTap: ()
               {
+                _handleURLButtonPress(context, data.linkUrl);
                 //navigateToNextActivity(context, data.linkID);
-                html.window.open(data.linkUrl, data.linkName);
+
                 },
+
               child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -111,6 +154,7 @@ class MaliLinkViewState extends State {
                   ]),),
 
             Divider(color: Colors.black),
+            FutureBuilder<void>(future: _launched, builder: _launchStatus),
           ],))
               .toList(),
         );
