@@ -1,13 +1,17 @@
+import 'package:desk2929/linkmali.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'web_view_link.dart';
 import 'test123.dart';
 
 
 class linkpage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -69,18 +73,20 @@ class linkdeskState extends State <linkdesk> {
   }
 
   Widget formSetup(BuildContext context){
+    var s=MediaQuery.of(context).size;
+    final String maliUrl='https://www.desk2929.ir/mali';
     return new Form(
       child: new Column(
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(right: 20,top:10),
-            width: 200,
-            height: 80,
-            child: Text("میز خدمت آموزش و پرورش بوکان"),
+            padding: EdgeInsets.only(right: 5,top:10),
+            width: s.width*.95,
+            height: 60,
+            //child: Text("میز خدمت آموزش و پرورش بوکان"),
             decoration: BoxDecoration(
               //border: Radius.circular(10),
                 image: DecorationImage(
-                  image: AssetImage('assets/images/Dokme.png'),
+                  image: AssetImage('assets/images/Banner_desk.png'),
                   fit: BoxFit.fill,
                 )
             ),
@@ -90,29 +96,55 @@ class linkdeskState extends State <linkdesk> {
               child: Row(
                   children: <Widget>[
                     Container(
-
-                      padding: EdgeInsets.only(right: 20,top:5),
+                      padding: EdgeInsets.only(right: 10,top:5),
                       child: Card
                         (
                            child: Column(
                              mainAxisSize: MainAxisSize.min,
                              children: <Widget>[
                                Container(
-                                 width: 300,
-                                 child: Text("links1"),
+                                 padding: EdgeInsets.only(right: 20,top:5),
+                                 width: (s.width*0.9)/2,
+                                 height: 150,
+                                 
+                                 child: new RaisedButton(
+                                     child: Image.asset('assets/images/mali.png'),
+                                     onPressed: (){
+                                       Navigator.push(context,
+                                           MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
+                                       );
+                                     },
+                                     color: Colors.white,
+                                     highlightColor: Colors.white,
+                                 ),
+
                                )
                              ],
                            ),
                       )
                     ),
                     Container(
+                        padding: EdgeInsets.only(right: 5,top:5),
                         child: Card
                           (
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
                               Container(
-                                child: Text("links2"),
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/prs.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/persi'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
+                                ),
+
                               )
                             ],
                           ),
@@ -121,6 +153,67 @@ class linkdeskState extends State <linkdesk> {
                   ]
               )
           ),
+          SizedBox(height: 5,),
+          Container(
+              child: Row(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(right: 10,top:5),
+                        child: Card
+                          (
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/stud.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/stud'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
+                                ),
+
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                    Container(
+                        padding: EdgeInsets.only(right: 5,top:5),
+                        child: Card
+                          (
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(right: 20,top:5),
+                                width: (s.width*0.9)/2,
+                                height: 150,
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/region.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/region'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
+                                ),
+                              )
+                            ],
+                          ),
+                        )
+                    ),
+                  ]
+              )
+          ),
+
         ],
       ),
     );

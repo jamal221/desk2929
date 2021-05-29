@@ -30,6 +30,9 @@ dependencies:
   json_serializable: ^2.0.0
   shared_preferences: "0.5.12+2"
   image_picker: ^0.6.7+22
+  webview_flutter: ^1.0.7
+  flutter_webview_plugin: ^0.3.10+1
+  url_launcher:
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -62,6 +65,8 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
+  assets:
+    - assets/images/
 
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
