@@ -108,7 +108,7 @@ class MaliLinkViewState extends State {
   }
   void _handleURLButtonPress(BuildContext context, String url) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => WebViewContainer(url)));
+        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali')));
   }
   @override
   void initState() {
@@ -136,9 +136,12 @@ class MaliLinkViewState extends State {
             GestureDetector(
               onTap: ()
               {
-                _handleURLButtonPress(context, data.linkUrl);
+                //_handleURLButtonPress(context, data.linkUrl);
                 //navigateToNextActivity(context, data.linkID);
-
+                print(data.linkUrl);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
+                  );
                 },
 
               child: Row(

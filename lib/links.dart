@@ -1,13 +1,17 @@
+import 'package:desk2929/linkmali.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'web_view_link.dart';
 import 'test123.dart';
 
 
 class linkpage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -70,6 +74,7 @@ class linkdeskState extends State <linkdesk> {
 
   Widget formSetup(BuildContext context){
     var s=MediaQuery.of(context).size;
+    final String maliUrl='https://www.desk2929.ir/mali';
     return new Form(
       child: new Column(
         children: <Widget>[
@@ -105,18 +110,14 @@ class linkdeskState extends State <linkdesk> {
                                  child: new RaisedButton(
                                      child: Image.asset('assets/images/mali.png'),
                                      onPressed: (){
-
+                                       Navigator.push(context,
+                                           MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
+                                       );
                                      },
                                      color: Colors.white,
                                      highlightColor: Colors.white,
                                  ),
-                                 decoration: BoxDecoration(
-                                   //border: Radius.circular(10),
-                                     image: DecorationImage(
-                                       image: AssetImage('assets/images/mali.png'),
-                                       fit: BoxFit.fill,
-                                     )
-                                 ),
+
                                )
                              ],
                            ),
@@ -133,13 +134,17 @@ class linkdeskState extends State <linkdesk> {
                                 padding: EdgeInsets.only(right: 20,top:5),
                                 width: (s.width*0.9)/2,
                                 height: 150,
-                                decoration: BoxDecoration(
-                                  //border: Radius.circular(10),
-                                    image: DecorationImage(
-                                      image: AssetImage('assets/images/prs.png'),
-                                      fit: BoxFit.fill,
-                                    )
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/prs.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/persi'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
                                 ),
+
                               )
                             ],
                           ),
@@ -163,13 +168,17 @@ class linkdeskState extends State <linkdesk> {
                                 padding: EdgeInsets.only(right: 20,top:5),
                                 width: (s.width*0.9)/2,
                                 height: 150,
-                                decoration: BoxDecoration(
-                                  //border: Radius.circular(10),
-                                    image: DecorationImage(
-                                      image: AssetImage('assets/images/stud.png'),
-                                      fit: BoxFit.fill,
-                                    )
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/stud.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/stud'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
                                 ),
+
                               )
                             ],
                           ),
@@ -186,12 +195,15 @@ class linkdeskState extends State <linkdesk> {
                                 padding: EdgeInsets.only(right: 20,top:5),
                                 width: (s.width*0.9)/2,
                                 height: 150,
-                                decoration: BoxDecoration(
-                                  //border: Radius.circular(10),
-                                    image: DecorationImage(
-                                      image: AssetImage('assets/images/region.png'),
-                                      fit: BoxFit.fill,
-                                    )
+                                child: new RaisedButton(
+                                  child: Image.asset('assets/images/region.png'),
+                                  onPressed: (){
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/region'))
+                                    );
+                                  },
+                                  color: Colors.white,
+                                  highlightColor: Colors.white,
                                 ),
                               )
                             ],
