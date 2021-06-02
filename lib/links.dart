@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'web_view_link.dart';
 import 'test123.dart';
+import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
 
 
 class linkpage extends StatelessWidget {
@@ -15,6 +17,7 @@ class linkpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "لیست لینک ها",
       home: linkdesk(),
     );
@@ -111,7 +114,7 @@ class linkdeskState extends State <linkdesk> {
                                      child: Image.asset('assets/images/mali.png'),
                                      onPressed: (){
                                        Navigator.push(context,
-                                           MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
+                                           MaterialPageRoute(builder: (context) => (malilinks()))
                                        );
                                      },
                                      color: Colors.white,

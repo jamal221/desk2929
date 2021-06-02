@@ -224,6 +224,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.11"
+  footer:
+    dependency: "direct main"
+    description:
+      name: footer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
   form_field_validator:
     dependency: "direct main"
     description:
