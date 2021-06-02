@@ -35,6 +35,7 @@ dependencies:
   url_launcher:
   flutter:
     sdk: flutter
+  footer:
   flutter_localizations:
     sdk: flutter
 
