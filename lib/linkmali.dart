@@ -13,6 +13,7 @@ class malilinks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
             title: Padding(
@@ -64,6 +65,7 @@ Widget _launchStatus(BuildContext context, AsyncSnapshot<void> snapshot) {
     return const Text('');
   }
 }
+bool isLoading=true;
 Future<void> _launchInBrowser(String url) async {
   if (await canLaunch(url)) {
     await launch(
@@ -108,7 +110,7 @@ class MaliLinkViewState extends State {
   }
   void _handleURLButtonPress(BuildContext context, String url) {
     Navigator.push(context,
-        MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali')));
+        MaterialPageRoute(builder: (context) => WebViewContainer('https://')));
   }
   @override
   void initState() {
@@ -136,11 +138,13 @@ class MaliLinkViewState extends State {
             GestureDetector(
               onTap: ()
               {
-                //_handleURLButtonPress(context, data.linkUrl);
-                //navigateToNextActivity(context, data.linkID);
                 print(data.linkUrl);
+                //_launchInBrowser('https://'+data.linkUrl);
+               // _handleURLButtonPress(context, data.linkUrl);
+                //navigateToNextActivity(context, data.linkID);
+                //print(data.linkUrl);
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
+                      MaterialPageRoute(builder: (context) => WebViewContainer('https://'+data.linkUrl))
                   );
                 },
 
