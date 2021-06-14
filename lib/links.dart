@@ -8,14 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'web_view_link.dart';
 import 'test123.dart';
-
-
+import 'header.dart';
+import 'package:desk2929/footer.dart';
+import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
 class linkpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: "لیست لینک ها",
+      debugShowCheckedModeBanner: false,
       home: linkdesk(),
     );
   }
@@ -44,6 +47,9 @@ class linkdeskState extends State <linkdesk> {
                 children: [
                   SizedBox(height: 20),
                   Container(
+                    child: header(),
+                  ),
+                  Container(
                       padding: EdgeInsets.only(top: 10),
                       height: s.height,
                       width: s.width,
@@ -53,7 +59,6 @@ class linkdeskState extends State <linkdesk> {
                           end:
                           Alignment.centerRight, // 10% of the width, so there are ten blinds.
                           colors: <Color>[
-
                             Color.fromARGB(255, 39, 206, 137),
                             Color.fromARGB(255, 28, 30, 79)
                           ], // red to yellow
@@ -63,11 +68,31 @@ class linkdeskState extends State <linkdesk> {
                       //padding: const EdgeInsets.all(20.0),
                       child: formSetup(context)
                   ),
-
-
+                  Container(
+                    //child: footerme(),
+                  )
                 ],
               ),
-            )
+
+            ),
+          bottomNavigationBar: new Container(
+            //child: footerme(),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  // width: s.width/5,
+                  child: Image.asset('assets/images/home.png'),
+                ),
+                Container(
+                  //   width: s.width/5,
+                  child: Image.asset('assets/images/user.png'),
+                ),
+                ]
+              ),
+          height: 60.0,
+          color: Colors.red,
+        ),
         )
     );
   }
@@ -213,6 +238,7 @@ class linkdeskState extends State <linkdesk> {
                   ]
               )
           ),
+
 
         ],
       ),

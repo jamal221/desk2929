@@ -35,6 +35,9 @@ dependencies:
   url_launcher:
   flutter:
     sdk: flutter
+  fluttertoast: ^8.0.7
+  toast: ^0.1.5
+  footer:
   flutter_localizations:
     sdk: flutter
 

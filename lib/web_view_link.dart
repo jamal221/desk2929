@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:desk2929/header.dart';
 class WebViewContainer extends StatefulWidget {
   final url;
   WebViewContainer(this.url);
@@ -12,10 +13,17 @@ class _WebViewContainerState extends State<WebViewContainer> {
   _WebViewContainerState(this._url);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+    //return Scaffold(
+       // appBar: AppBar(),
         body: Column(
           children: [
+            SizedBox(height: 15,),
+            Container(
+              child: header(),
+            ),
             Expanded(
                 child: WebView(
                     key: _key,
@@ -24,6 +32,26 @@ class _WebViewContainerState extends State<WebViewContainer> {
                 )
             )
           ],
-        ));
+        ),
+        bottomNavigationBar: new Container(
+          //child: footerme(),
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  // width: s.width/5,
+                  child: Image.asset('assets/images/home.png'),
+                ),
+                Container(
+                  //   width: s.width/5,
+                  child: Image.asset('assets/images/user.png'),
+                ),
+              ]
+          ),
+          height: 60.0,
+          color: Colors.red,
+        ),
+      )
+    );
   }
 }
