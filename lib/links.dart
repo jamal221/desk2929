@@ -8,10 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'web_view_link.dart';
 import 'test123.dart';
+<<<<<<< HEAD
+import 'header.dart';
+import 'package:desk2929/footer.dart';
+import 'package:footer/footer.dart';
+import 'package:footer/footer_view.dart';
+=======
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
 
 
+>>>>>>> 26f2cc7f3d207559a25d52ba62613ec8d24aeefb
 class linkpage extends StatelessWidget {
 
   @override
@@ -19,6 +26,7 @@ class linkpage extends StatelessWidget {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "لیست لینک ها",
+      debugShowCheckedModeBanner: false,
       home: linkdesk(),
     );
   }
@@ -45,10 +53,13 @@ class linkdeskState extends State <linkdesk> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 40),
+                  Container(
+                    child: header(),color: Colors.white,
+                  ),
                   Container(
                       padding: EdgeInsets.only(top: 10),
-                      height: s.height,
+                      height: s.height-100,
                       width: s.width,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -56,7 +67,6 @@ class linkdeskState extends State <linkdesk> {
                           end:
                           Alignment.centerRight, // 10% of the width, so there are ten blinds.
                           colors: <Color>[
-
                             Color.fromARGB(255, 39, 206, 137),
                             Color.fromARGB(255, 28, 30, 79)
                           ], // red to yellow
@@ -66,11 +76,29 @@ class linkdeskState extends State <linkdesk> {
                       //padding: const EdgeInsets.all(20.0),
                       child: formSetup(context)
                   ),
-
-
+                  Container(
+                    //child: footerme(),
+                  )
                 ],
               ),
-            )
+
+            ),
+          bottomNavigationBar: new Container(
+            //child: footerme(),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Container(
+                  width: s.width,
+                  child: footerme(),
+                ),
+
+
+                ]
+              ),
+          height: 60.0,
+          color: Colors.red,
+        ),
         )
     );
   }
@@ -216,6 +244,7 @@ class linkdeskState extends State <linkdesk> {
                   ]
               )
           ),
+
 
         ],
       ),

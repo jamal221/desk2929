@@ -88,7 +88,8 @@ class MaliLinkView extends StatefulWidget {
 class MaliLinkViewState extends State {
   bool isLoaded;
   Future<void> _launched;
-  final String apiURL = t.getaddress() +'LinksMali.php';
+  //final String apiURL = t.getaddress() +'LinksMali.php';
+  final Uri apiURL =Uri.http(t.getaddress(), 'LinksMali.php');
   final _key = UniqueKey();
   Future<List<linkdata>> fetchlinks() async {
 
