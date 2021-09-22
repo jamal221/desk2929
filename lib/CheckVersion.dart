@@ -7,11 +7,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'links.dart';
 import 'registerPage.dart';
-
+import 'package:desk2929/CheckMobile.dart';
+import 'Version_Alarm.dart';
 import 'header.dart';
+import 'Show_Version.dart';
 //import package file manually
 String msg="درحال ارسال پبام...";
-class CheckMobileUser extends StatelessWidget {
+test123 t=new test123();
+var s;
+//Uri phpurl = Uri.http(t.getaddress(), 'VersionVerfy.php');
+String phpurl =t.getaddress()+"VersionVerfy.php";
+//test123 t=new test123();
+class CheckVersionApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -39,9 +46,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   //text controller for TextField
 
   bool error, sending, success;
-  String msg, msgBtn, mobileCooki;
-  test123 t=new test123();
-  String phpurl;
+  String msg, msgBtn, mobileCooki, ver1app, ver2app, ver3app;
   var s;
   // do not use http://localhost/ for your local
   // machine, Android emulation do not recognize localhost
@@ -54,57 +59,40 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     sending = false;
     success = false;
     msg = "";
+    int ver1app=3;
+    int ver2app=5;
+    int ver3app=1;
     msgBtn="ثبت پیام جدید";
     super.initState();
     this.sendData();
   }
-  //print("1");
-  Future<void> sendData() async {
-    //phpurl=t.getaddress(), 'UserVerfy.php');
-    phpurl = t.getaddress()+"UserVerfy.php";
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    mobileCooki= prefs.getString('mobile99');
-    //mobileCooki="09143805648";
-    print (mobileCooki);
-    if (mobileCooki!= null)// To check cooki which seted in App
-        {
-      Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
-     /* var res = await http.post(phpurl, body: {
-        "mobileSent":mobileCooki,
-      });*///sending post request with header data
-      /*if (res.statusCode == 200) {
-        // print("body:" + res.body); //print raw response on console
-        var data = json.decode(res.body); //decoding json to array
-        print(data);
-        int x=int.parse(data.toString());
-        if(x==123) {
-          setState(() {
-            msg="mobarak";
-            // Navigator.push(context, MaterialPageRoute(builder: (_) => shenasnameh()));
-            Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
-          });
-          //Toast.show("پیام ارسال شد", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        }
-        else
-          {
-            print("not ok Cooki");
-            setState(() {
-              msg="mobarak";
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => shenasnameh()));
-              Navigator.push(context,MaterialPageRoute(builder: (context) => regUserkk()));
-            });
-          }
 
-      }*/
-    }
+  //print("1");
+
+  Future<void> sendData() async {
+    var res = await http.post(phpurl, body: {
+      "ver1appSend":"0",
+      "ver2appSend":"0",
+      "ver3appSend":"1",
+    });
+    //print("ver1app is:");
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
+    //mobileCooki= prefs.getString('mobile99');
+    //mobileCooki="09143805648";
+    //print (mobileCooki);
+    //var data =res.body;
+    print(res.body);
+    if (res.body == "789")// To check cooki which seted in App
+        {
+          Navigator.push(context,MaterialPageRoute(builder: (context) => CheckMobileUser()));
+        }
     else
       {
-        print("not mobile");
-        setState(() {
-          msg="mobarak";
-          // Navigator.push(context, MaterialPageRoute(builder: (_) => shenasnameh()));
-          Navigator.push(context,MaterialPageRoute(builder: (context) => regUserkk()));
-        });      }
+        //print("new version exist on the web please  check");
+        Navigator.push(context,MaterialPageRoute(builder: (context) => VersionAlarm()));
+       // Navigator.push(context,MaterialPageRoute(builder: (context) => ShowVersion()));
+
+      }
   }
   @override
   Widget build(BuildContext context) {

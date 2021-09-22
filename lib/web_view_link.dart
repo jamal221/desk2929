@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:desk2929/header.dart';
+import "footer.dart";
 class WebViewContainer extends StatefulWidget {
   final url;
   WebViewContainer(this.url);
@@ -40,12 +41,15 @@ class _WebViewContainerState extends State<WebViewContainer> {
               children: <Widget>[
                 Container(
                   // width: s.width/5,
-                  child: Image.asset('assets/images/home.png'),
+                  //child: Image.asset('assets/images/home.png'),
                 ),
                 Container(
                   //   width: s.width/5,
-                  child: Image.asset('assets/images/user.png'),
+                 // child: Image.asset('assets/images/user.png'),
                 ),
+                Container(
+                  child: footerme(),
+                )
               ]
           ),
           height: 60.0,

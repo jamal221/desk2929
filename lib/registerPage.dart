@@ -6,6 +6,9 @@ import 'smspage.dart';
 import 'test123.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'header.dart';
+import 'footer.dart';
+import 'package:toast/toast.dart';
+import 'links.dart';
 
 String msg="درحال ارسال و ثبت نام...";
 test123 t=new test123();
@@ -44,7 +47,7 @@ class RegInfState extends State <RegInf> {
   TextEditingController _namectl= TextEditingController();
   TextEditingController _mobilectl= TextEditingController();
   bool error, sending, success;
-  String msg;
+  String msg, mobileCooki;
 
   @override
   void initState() {
@@ -53,33 +56,46 @@ class RegInfState extends State <RegInf> {
     success = false;
     msg = "";
     super.initState();
+    CheckMobileReg();
+  }
+  Future<void> CheckMobileReg() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    mobileCooki= prefs.getString('mobile99');
+
+    if (mobileCooki!= null)// To check cooki which seted in App
+        {
+      Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+
+    }
+
   }
 
   Future<void> sendData() async {
-    var res = await http.post(phpurl, body: {
-      "name":_namectl.text,
-      "mobile":_mobilectl.text,
-    });
-    print(_namectl);
-    if (res.statusCode == 200) {
-      print("body:"+res.body); //print raw response on console
-      var data = json.decode(res.body); //decoding json to array
-      print(data);
-      int x=int.parse(data.toString());
-      if(x==123) {
+
+    if (1==1 ) {
+      //print("body:"+res.body); //print raw response on console
+      //var data = json.decode(res.body); //decoding json to array
+      if(123==123) {
+      int code=hashCode;
+      print("hash cod is:");
+      print(code);
         setState(() {
           msg="mobarak";
           // Navigator.push(context, MaterialPageRoute(builder: (_) => shenasnameh()));
-          Navigator.push(context,MaterialPageRoute(builder: (context) => sms(_mobilectl.text)));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => sms(_mobilectl.text, _namectl.text, code)));
         });
       }
-      else
+      else{
+        Toast.show("در فرایند درج خطای رخ داده است، یکبار دیگر سعی یا با مدیر سیستم تماس بگیرید.", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         print("not ok");
+      }
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    //String code = randomAlpha(5);
     s=MediaQuery.of(context).size;
     // TODO: implement build
     return Directionality(
@@ -94,7 +110,8 @@ class RegInfState extends State <RegInf> {
                   Container(
                     height: 100,
                     color: Color.fromARGB(255, 230, 230, 230),
-                    child: header(),
+                    //child: header(),
+                    child: Image.asset('assets/images/Banner_desk.png', scale: 1,),
                   ),
                   Container(
                       padding: EdgeInsets.only(top: 10),
@@ -134,11 +151,33 @@ class RegInfState extends State <RegInf> {
                   ),
                 ],
               ),
-            )
-
+            ),
+                    bottomNavigationBar: new Container(
+                //child: footerme(),
+                        child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Container(
+                          // width: s.width/5,
+                          child: footerme(),
+                        ),
+                        Container(
+                          // width: s.width/5,
+                          //child: Image.asset('assets/images/home.png'),
+                        ),
+                        Container(
+                          //   width: s.width/5,
+                          //child: Image.asset('assets/images/user.png'),
+                        ),
+                      ]
+                  ),
+                        height: 60.0,
+                        color: Colors.red,
+            ),
         )
     );
   }
+
 
   Widget formSetup(BuildContext context){
     return new Form(
@@ -238,7 +277,7 @@ class RegInfState extends State <RegInf> {
               highlightColor: Colors.white,
             ),
           ),
-          Container(
+          /*Container(
             width: s.width*0.7,
             padding: EdgeInsets.only(right: 100,top:5),
             child:new RaisedButton(
@@ -255,7 +294,7 @@ class RegInfState extends State <RegInf> {
               color: Colors.white,
               highlightColor: Colors.white,
             ),
-          ),
+          ),*/
         ],
       ),
     );

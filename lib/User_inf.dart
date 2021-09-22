@@ -10,7 +10,7 @@ import 'footer.dart';
 import 'header.dart';
 //import package file manually
 String msg="درحال ارسال پبام...";
-class MsgUser extends StatelessWidget {
+class UserInf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -18,20 +18,20 @@ class MsgUser extends StatelessWidget {
         theme: ThemeData(
           primarySwatch:Colors.blue, //primary color for theme
         ),
-        home: WriteSQLdata()
+        home: UserInfData()
       //set the class here
     );
   }
 }
 
-class WriteSQLdata extends StatefulWidget{
+class UserInfData extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
     return WriteSQLdataState();
   }
 }
 
-class WriteSQLdataState extends State<WriteSQLdata> {
+class WriteSQLdataState extends State<UserInfData> {
 
   TextEditingController msgctl = TextEditingController();
 
@@ -40,7 +40,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   bool error, sending, success;
   String msg, msgBtn, mobilecooki;
   test123 t=new test123();
-  String phpurl, phpurl2;
+  String phpurl;
   var s;
   // do not use http://localhost/ for your local
   // machine, Android emulation do not recognize localhost
@@ -53,73 +53,36 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     sending = false;
     success = false;
     msg = "";
-    msgBtn="ثبت پیام جدید";
     super.initState();
+    CheckUser();
   }
-  CheckIdentfy() async{
-  phpurl2 = t.getaddress()+"CheckUserImage.php";
-    //phpurl2 = Uri.http(t.getaddress(), 'CheckUserImage.php');
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  mobilecooki= prefs.getString('mobile99');
-  {
-    var res = await http.post(phpurl2, body: {
-      "mobilesended":mobilecooki,
-      "msgsended": msgctl.text,
-    });//sending post request with header data
-    print(msgctl.text);
-    if (res.statusCode == 200) {
-      // print("body:" + res.body); //print raw response on console
-      var data = json.decode(res.body); //decoding json to array
-      print(data);
-      int x=int.parse(data.toString());
-      if(x==123) {
-        Toast.show("پیام ارسال شد", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-
-        setState(() {
-          sending=true;
-          error= false;
-          msgctl.text="";
-        });
-      }
-      else
-        print("not ok Cooki");
-    }
-
-  }
-}
-  Future<void> sendData() async {
-    phpurl = t.getaddress()+"MessagReg.php";
-   // phpurl =Uri.http(t.getaddress(), 'MessagReg.php');
+  Future<void> CheckUser() async {
+    //phpurl = t.getaddress()+"MessagReg.php";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     mobilecooki= prefs.getString('mobile99');
     //print (emailCooki);
     if (mobilecooki!= null)// To check cooki which seted in App
         {
+          msg="شما از طریق موبایل"+mobilecooki+ "واردسیستم شده اید";
 
-      var res = await http.post(phpurl, body: {
-        "mobilesended":mobilecooki,
-        "msgsended": msgctl.text,
-      });//sending post request with header data
-      print(msgctl.text);
-      if (res.statusCode == 200) {
-        // print("body:" + res.body); //print raw response on console
-        var data = json.decode(res.body); //decoding json to array
-        print(data);
-        int x=int.parse(data.toString());
-        if(x==123) {
-          Toast.show("پیام ارسال شد", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          Toast.show(msg, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
           setState(() {
             sending=true;
             error= false;
-            msgctl.text="";
           });
         }
-        else
-          print("not ok Cooki");
-      }
+    else
+      {
+        msg="شما هنوز در سیستم ثبت نام نکرده اید";
 
-    }
+        Toast.show(msg, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+        setState(() {
+          sending=true;
+          error= true;
+        });
+      }
 
 
   }
@@ -137,7 +100,8 @@ class WriteSQLdataState extends State<WriteSQLdata> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children:[
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30
+                      ,),
                     Container(
                         //height: 100,
                         //color: Color.fromARGB(255, 230, 230, 230),
@@ -162,7 +126,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
                       child: Column(
                         children: <Widget>[
                           Center(
-                            child: Text("ارسال تیکت",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
+                            child: Text("اطلاعات کاربر",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
                           ),
 
                           Divider(color: Colors.white,),
@@ -177,46 +141,13 @@ class WriteSQLdataState extends State<WriteSQLdata> {
                                     width: s.width*0.7,
                                     padding: EdgeInsets.all(20),
                                     child: Column(children: <Widget>[
-                                      Container(
-                                          width: 300,
-                                          height: 200,
-                                          child: TextField(
-                                            maxLines: 7,
-                                            controller: msgctl,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              labelText: 'متن پیام',
-                                              hintText: 'لطفا پیام خود را تایپ نمایید',
-                                            ),
-                                            autofocus: false,
-                                          )
-                                      ),
                                       SizedBox(height: 10),
-                                      Container(
-                                        child: Text(error ? "" : "پیام با موفقیت ارسال شد."),
-                                        //if there is error then sho msg, other wise show text message
-                                      ),
+
 
                                       Container(
                                           margin: EdgeInsets.only(top: 20),
                                           width: s.width*0.8,
-                                          child: SizedBox(
-                                              width: double.infinity,
-                                              child: RaisedButton(
-                                                onPressed: () { //if button is pressed, setstate sending = true, so that we can show "sending..."
-                                                  setState(() {
-                                                    sending = true;
-                                                  });
-                                                  sendData();
-                                                },
-                                                child: Text(
-                                                  sending ? msgBtn : "ارسال پیام",style: TextStyle(color: Colors.black,fontSize: 16),
-                                                ),//if sending == true then show "Sending" else show "SEND DATA";
-                                                color: Colors.greenAccent,
-                                                colorBrightness: Brightness.dark,
-                                                //background of button is darker color, so set brightness to dark
-                                              )
-                                          )
+                                          child: Text(msg),
                                       )
 
                                     ],
@@ -258,7 +189,6 @@ class WriteSQLdataState extends State<WriteSQLdata> {
             height: 60.0,
             color: Colors.red,
           ),
-
         )
     );
   }

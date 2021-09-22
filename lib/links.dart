@@ -45,13 +45,13 @@ class linkdeskState extends State <linkdesk> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 40),
                   Container(
-                    child: header(),
+                    child: header(),color: Colors.white,
                   ),
                   Container(
                       padding: EdgeInsets.only(top: 10),
-                      height: s.height,
+                      height: s.height-100,
                       width: s.width,
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -81,13 +81,11 @@ class linkdeskState extends State <linkdesk> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  // width: s.width/5,
-                  child: Image.asset('assets/images/home.png'),
+                  width: s.width,
+                  child: footerme(),
                 ),
-                Container(
-                  //   width: s.width/5,
-                  child: Image.asset('assets/images/user.png'),
-                ),
+
+
                 ]
               ),
           height: 60.0,
