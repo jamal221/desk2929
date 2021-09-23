@@ -315,7 +315,18 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.11"
+<<<<<<< HEAD
   fluttertoast:
+=======
+  footer:
+    dependency: "direct main"
+    description:
+      name: footer
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.3"
+  form_field_validator:
+>>>>>>> 26f2cc7f3d207559a25d52ba62613ec8d24aeefb
     dependency: "direct main"
     description:
       name: fluttertoast

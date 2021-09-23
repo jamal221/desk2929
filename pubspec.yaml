@@ -45,8 +45,11 @@ dependencies:
   sizer: ^2.0.13
   flutter:
     sdk: flutter
+<<<<<<< HEAD
   fluttertoast: ^8.0.7
   toast: ^0.1.5
+=======
+>>>>>>> 26f2cc7f3d207559a25d52ba62613ec8d24aeefb
   footer:
   flutter_localizations:
     sdk: flutter
