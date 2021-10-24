@@ -8,23 +8,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'web_view_link.dart';
 import 'test123.dart';
-<<<<<<< HEAD
 import 'header.dart';
 import 'package:desk2929/footer.dart';
 import 'package:footer/footer.dart';
 import 'package:footer/footer_view.dart';
-=======
-import 'package:footer/footer.dart';
-import 'package:footer/footer_view.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 
-
->>>>>>> 26f2cc7f3d207559a25d52ba62613ec8d24aeefb
 class linkpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: "لیست لینک ها",
       debugShowCheckedModeBanner: false,
       home: linkdesk(),
@@ -42,6 +36,59 @@ class linkdesk extends StatefulWidget {
 String msg="";
 test123 t=new test123();
 class linkdeskState extends State <linkdesk> {
+  /*void initState() {
+    // TODO: implement initState
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }*/
+  //@override
+  /*void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }*/
+   /*bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+     return true;
+    //print("BACK BUTTON!"); // Do some stuff.
+    //Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+    //return true;
+     //Navigator.push(context, MaterialPageRoute(builder: (_) => MsgUser()));
+     //Navigator.push(context, MaterialPageRoute(builder: (_) => ticketlist()));
+     /*showDialog(
+         context: context,
+         builder: (_) {
+           return AlertDialog(
+             title: Text('آیا می خواهید از برنامه خارج شوید؟'),
+             actions: [
+               FlatButton(
+                 //onPressed: () =>Navigator.of(context).pop(false), // passing false
+                 onPressed: () =>Navigator.of(context, rootNavigator: true).pop(context),
+                 child: Text('خیر'),
+               ),
+               FlatButton(
+                 onPressed: () => Navigator.of(context, rootNavigator: false).pop(context),//assing true
+                 child: Text('بله'),
+               ),
+             ],
+           );
+         }
+     ).then((exit)
+     {
+       if (exit == null) return;
+
+       if (exit) {
+         //exit(0);// user pass yes button
+         //Navigator.pop(context,'OK');
+         //SystemNavigator.pop();
+       }
+       else {
+         // user pressed No button
+         //Navigator.of(context).pop(false);
+         Navigator.of(context, rootNavigator: true).pop(context);
+       }
+     }
+     );*/
+  }*/
+
   @override
   Widget build(BuildContext context) {
     var s=MediaQuery.of(context).size;
@@ -62,7 +109,11 @@ class linkdeskState extends State <linkdesk> {
                       height: s.height-100,
                       width: s.width,
                       decoration: const BoxDecoration(
-                        gradient: LinearGradient(
+                            image: DecorationImage(
+                                image: ExactAssetImage("assets/images/ic_launcher.png"),
+                                fit: BoxFit.contain
+                            ),
+                        /*gradient: LinearGradient(
                           begin: Alignment.center,
                           end:
                           Alignment.centerRight, // 10% of the width, so there are ten blinds.
@@ -71,7 +122,7 @@ class linkdeskState extends State <linkdesk> {
                             Color.fromARGB(255, 28, 30, 79)
                           ], // red to yellow
                           tileMode: TileMode.mirror, // repeats the gradient over the canvas
-                        ),
+                        ),*/
                       ),
                       //padding: const EdgeInsets.all(20.0),
                       child: formSetup(context)
@@ -97,7 +148,7 @@ class linkdeskState extends State <linkdesk> {
                 ]
               ),
           height: 60.0,
-          color: Colors.red,
+          color: Colors.purple,
         ),
         )
     );
@@ -130,6 +181,13 @@ class linkdeskState extends State <linkdesk> {
                       padding: EdgeInsets.only(right: 10,top:5),
                       child: Card
                         (
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(30)
+                          ),
+                        ),
+                        color: Colors.white24,
+                        elevation: 60,
                            child: Column(
                              mainAxisSize: MainAxisSize.min,
                              children: <Widget>[
@@ -139,13 +197,18 @@ class linkdeskState extends State <linkdesk> {
                                  height: 150,
                                  
                                  child: new RaisedButton(
+                                   shape: RoundedRectangleBorder(
+                                     borderRadius: BorderRadius.all(
+                                         Radius.circular(30)
+                                     ),
+                                   ),
                                      child: Image.asset('assets/images/mali.png'),
                                      onPressed: (){
                                        Navigator.push(context,
-                                           MaterialPageRoute(builder: (context) => (malilinks()))
+                                           MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/mali'))
                                        );
                                      },
-                                     color: Colors.white,
+                                     color: Colors.amber,
                                      highlightColor: Colors.white,
                                  ),
 
@@ -158,6 +221,13 @@ class linkdeskState extends State <linkdesk> {
                         padding: EdgeInsets.only(right: 5,top:5),
                         child: Card
                           (
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(30)
+                            ),
+                          ),
+                          color: Colors.white24,
+                          elevation: 60,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -166,13 +236,18 @@ class linkdeskState extends State <linkdesk> {
                                 width: (s.width*0.9)/2,
                                 height: 150,
                                 child: new RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30)
+                                    ),
+                                  ),
                                   child: Image.asset('assets/images/prs.png'),
                                   onPressed: (){
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/persi'))
                                     );
                                   },
-                                  color: Colors.white,
+                                  color: Colors.amber,
                                   highlightColor: Colors.white,
                                 ),
 
@@ -192,6 +267,13 @@ class linkdeskState extends State <linkdesk> {
                         padding: EdgeInsets.only(right: 10,top:5),
                         child: Card
                           (
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(30)
+                            ),
+                          ),
+                          color: Colors.white24,
+                          elevation: 60,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -200,13 +282,18 @@ class linkdeskState extends State <linkdesk> {
                                 width: (s.width*0.9)/2,
                                 height: 150,
                                 child: new RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30)
+                                    ),
+                                  ),
                                   child: Image.asset('assets/images/stud.png'),
                                   onPressed: (){
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/stud'))
                                     );
                                   },
-                                  color: Colors.white,
+                                  color: Colors.amber,
                                   highlightColor: Colors.white,
                                 ),
 
@@ -219,6 +306,13 @@ class linkdeskState extends State <linkdesk> {
                         padding: EdgeInsets.only(right: 5,top:5),
                         child: Card
                           (
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(30)
+                            ),
+                          ),
+                          color: Colors.white24,
+                          elevation: 60,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -227,13 +321,18 @@ class linkdeskState extends State <linkdesk> {
                                 width: (s.width*0.9)/2,
                                 height: 150,
                                 child: new RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(30)
+                                    ),
+                                  ),
                                   child: Image.asset('assets/images/region.png'),
                                   onPressed: (){
                                     Navigator.push(context,
                                         MaterialPageRoute(builder: (context) => WebViewContainer('https://www.desk2929.ir/region'))
                                     );
                                   },
-                                  color: Colors.white,
+                                  color: Colors.amber,
                                   highlightColor: Colors.white,
                                 ),
                               )

@@ -10,6 +10,8 @@ import 'CheckMobile.dart';
 import 'package:desk2929/Show_Version.dart';
 import 'DownLoadFile4.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'links.dart';
 
 
 import 'header.dart';
@@ -48,8 +50,8 @@ class WriteSQLdataState extends State<UserInfData> {
   //test123 t=new test123();
 
 
-  bool error, sending, success;
-  String msg, msgBtn, mobilecooki;
+  bool error, sending, success, shouldEnable;
+  String msg, msgBtn, mobilecooki,msg_new_user;
 
   String phpurl;
   var s;
@@ -62,14 +64,30 @@ class WriteSQLdataState extends State<UserInfData> {
     error = true;
     sending = false;
     success = false;
+    shouldEnable=false;
     msg = "ورژن شما قدیمی است و ورژن جدید در پایگاه موجود است، لطفا از طریق لینک زیر آن را دانلود کرده یا عدم موافقت را انتخاب نمایید.";
     super.initState();
+    //BackButtonInterceptor.add(myInterceptor);
     getVersion();
+
     //CheckUser();
+    }
+  @override
+  /*void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
   }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    //print("BACK BUTTON!"); // Do some stuff.
+    Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+    return true;
+  }*/
   Future<void> _download() async {
-    await canLaunch(_fileUrl) ? await launch(_fileUrl) : throw 'Could not launch $_fileUrl';
+    await canLaunch(_fileUrl) ? await launch(_fileUrl) : throw 'عدم وجود فایل در مسیر $_fileUrl';
   }
+
+
   /*Future<void> CheckUser() async {
     //phpurl = t.getaddress()+"MessagReg.php";
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -119,8 +137,8 @@ class WriteSQLdataState extends State<UserInfData> {
                     Container(
                         height: 100,
                         color: Colors.white,
-                        child: header()
-                      //child: Image.asset('assets/images/Banner_desk.png', scale: 1,),
+                        //child: header()
+                      child: Image.asset('assets/images/Banner_desk.png', scale: 1,),
                     ),
                     Container(
                         height: s.height-110,
@@ -140,7 +158,7 @@ class WriteSQLdataState extends State<UserInfData> {
                       child: Column(
                         children: <Widget>[
                           Center(
-                            child: Text("بررسی ورژن",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
+                            child: Text("بررسی ورژن کاربر ثبت نام شده",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
                           ),
 
                           Divider(color: Colors.white,),
@@ -181,9 +199,9 @@ class WriteSQLdataState extends State<UserInfData> {
                                           child: new Text("ادامه با ورژن قبلی",
                                           ),
                                           color: Colors.deepOrange,
-                                          onPressed: (){
+                                          onPressed:(){
                                             Navigator.push(context,MaterialPageRoute(builder: (context) => CheckMobileUser()));
-                                          },
+                                          } ,
                                           highlightColor: Colors.white,
                                         ),
                                       ),
@@ -224,7 +242,7 @@ class WriteSQLdataState extends State<UserInfData> {
                 ]
             ),
             height: 60.0,
-            color: Colors.red,
+            color: Colors.purple,
           ),
         )
     );
@@ -238,8 +256,8 @@ class WriteSQLdataState extends State<UserInfData> {
       //String check1=json.decode(response.body);
       //print(check1);
       final items1 = json.decode(response.body);
-      print ("items1");
-      print (items1[2]);
+      //print ("items1");
+     // print (items1[2]);
       setState(() {
         ver1Db=items1[0].toString();
         ver2DB=items1[1].toString();

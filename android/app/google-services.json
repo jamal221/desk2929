@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "242198794636",
+    "project_id": "desk2929msg",
+    "storage_bucket": "desk2929msg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242198794636:android:a91715994395d761d246a9",
+        "android_client_info": {
+          "package_name": "com.example.desk2929"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242198794636-epi60eb0jhaqutcsr3eph9rajv571qr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwpYpxHO5VF0SiRII0ZAMBrKcFmihebEQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242198794636-epi60eb0jhaqutcsr3eph9rajv571qr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

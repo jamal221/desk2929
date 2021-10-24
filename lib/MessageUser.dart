@@ -6,6 +6,8 @@ import 'test123.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'footer.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'links.dart';
 
 import 'header.dart';
 //import package file manually
@@ -55,6 +57,18 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     msg = "";
     msgBtn="ثبت پیام جدید";
     super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    //print("BACK BUTTON!"); // Do some stuff.
+    Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+    return true;
   }
   CheckIdentfy() async{
   phpurl2 = t.getaddress()+"CheckUserImage.php";
@@ -63,8 +77,16 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   mobilecooki= prefs.getString('mobile99');
   {
     var res = await http.post(phpurl2, body: {
-      "mobilesended":mobilecooki,
-      "msgsended": msgctl.text,
+      if(msgctl.text!=null)
+        {
+          "mobilesended":mobilecooki,
+          "msgsended": msgctl.text,
+        }
+      else
+        {
+        Toast.show("پیام ارسال شد", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM)
+        }
+
     });//sending post request with header data
     print(msgctl.text);
     if (res.statusCode == 200) {
@@ -93,7 +115,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     mobilecooki= prefs.getString('mobile99');
     //print (emailCooki);
-    if (mobilecooki!= null)// To check cooki which seted in App
+    if (!msgctl.text.isEmpty)// To check cooki which seted in App
         {
 
       var res = await http.post(phpurl, body: {
@@ -120,6 +142,11 @@ class WriteSQLdataState extends State<WriteSQLdata> {
       }
 
     }
+    else
+      {
+        Toast.show("پیام نباید خالی باشد.", context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+      }
 
 
   }
@@ -181,14 +208,14 @@ class WriteSQLdataState extends State<WriteSQLdata> {
                                           width: 300,
                                           height: 200,
                                           child: TextField(
-                                            maxLines: 7,
+                                            maxLines: 20,
                                             controller: msgctl,
                                             decoration: InputDecoration(
                                               border: OutlineInputBorder(),
                                               labelText: 'متن پیام',
                                               hintText: 'لطفا پیام خود را تایپ نمایید',
                                             ),
-                                            autofocus: false,
+                                            autofocus: true,
                                           )
                                       ),
                                       SizedBox(height: 10),
@@ -256,7 +283,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
                 ]
             ),
             height: 60.0,
-            color: Colors.red,
+            color: Colors.purple,
           ),
 
         )

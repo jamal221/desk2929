@@ -8,7 +8,9 @@ import 'ticketlist.dart';
 import 'User_inf.dart';
 import 'package:desk2929/SendPic2.dart';
 import 'CheckVersion.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class header extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     var s=MediaQuery.of(context).size;
@@ -17,7 +19,7 @@ class header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           //Container(
-          GestureDetector(
+          /*GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (_) => CheckVersionApp()));
             },
@@ -25,13 +27,13 @@ class header extends StatelessWidget {
               width: s.width/10,
               child: Image.asset('assets/images/Download.png'),
             ),
-          ),
+          ),*/
           GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (_) => linkpage()));
             },
             child: Container(
-               width: s.width/10,
+               width: s.width/7,
               child: Image.asset('assets/images/home.png'),
             ),
           ),
@@ -45,7 +47,7 @@ class header extends StatelessWidget {
 
             },
             child: Container(
-               width: s.width/10,
+               width: s.width/7,
               child: Image.asset('assets/images/user.png'),
             ),
           ),
@@ -57,7 +59,7 @@ class header extends StatelessWidget {
 
             },
             child: Container(
-               width: s.width/10,
+               width: s.width/7,
               child: Image.asset('assets/images/logo.png'),
             ),
           ),
@@ -68,21 +70,21 @@ class header extends StatelessWidget {
 
             },
             child: Container(
-              width: s.width/10,
-              child: Image.asset('assets/images/alarm.png'),
+              width: s.width/7,
+              child: Image.asset('assets/images/chat.png'),
             ),
           ),
-          GestureDetector(
+          /*GestureDetector(
             onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (_) => MsgUser()));
               //Navigator.push(context, MaterialPageRoute(builder: (_) => ticketlist()));
 
             },
             child: Container(
-               width: s.width/10,
+               width: s.width/7,
               child: Image.asset('assets/images/chat.png'),
             ),
-          ),
+          ),*/
           GestureDetector(
             onTap: (){
               //Navigator.push(context, MaterialPageRoute(builder: (_) => MsgUser()));
@@ -132,4 +134,5 @@ class header extends StatelessWidget {
     );
   }
 }
+
 
