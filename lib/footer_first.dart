@@ -12,7 +12,7 @@ import 'package:back_button_interceptor/back_button_interceptor.dart';
 
 String ver1Db, ver2DB, ver3DB;
 test123 t=new test123();
-class footerme extends StatelessWidget {
+class footerme2 extends StatelessWidget {
   @override
 
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class footerme extends StatelessWidget {
     return Container(
       //width: s,
       //color: Colors.green,
-     // child: Image.asset('assets/images/footer.png',
+      // child: Image.asset('assets/images/footer.png',
       //width: 600
       //),
 
@@ -41,7 +41,7 @@ class footerme extends StatelessWidget {
           //Container(
           GestureDetector(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (_) => WebViewContainer('https://www.padvish.com')));
+              //Navigator.push(context, MaterialPageRoute(builder: (_) => WebViewContainer('https://www.padvish.com')));
             },
             child: Column(
               children: [
@@ -67,14 +67,13 @@ class footerme extends StatelessWidget {
           //),
           SizedBox(width: 10,),
           GestureDetector(
-           /* onTap: (){
+            /* onTap: (){
               Navigator.push(context, MaterialPageRoute(builder: (_) => WebViewContainer('https://www.padvish.com')));
             },*/
             child: Column(
               children: [
                 Container(
                   //width: 100,
-
                   child: Text(
                     'ارتباط با ما:',
                   ),

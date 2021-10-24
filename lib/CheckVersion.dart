@@ -11,6 +11,8 @@ import 'package:desk2929/CheckMobile.dart';
 import 'Version_Alarm.dart';
 import 'header.dart';
 import 'Show_Version.dart';
+import 'desk_interview.dart';
+import 'VersionAlarmNewUser.dart';
 //import package file manually
 String msg="درحال ارسال پبام...";
 test123 t=new test123();
@@ -46,7 +48,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   //text controller for TextField
 
   bool error, sending, success;
-  String msg, msgBtn, mobileCooki, ver1app, ver2app, ver3app;
+  String msg, msgBtn, mobileCooki, ver1app, ver2app, ver3app, mobilecooki;
   var s;
   // do not use http://localhost/ for your local
   // machine, Android emulation do not recognize localhost
@@ -59,9 +61,9 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     sending = false;
     success = false;
     msg = "";
-    int ver1app=3;
-    int ver2app=5;
-    int ver3app=1;
+    int ver1app=2;
+    int ver2app=0;
+    int ver3app=0;
     msgBtn="ثبت پیام جدید";
     super.initState();
     this.sendData();
@@ -70,10 +72,20 @@ class WriteSQLdataState extends State<WriteSQLdata> {
   //print("1");
 
   Future<void> sendData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    mobilecooki= prefs.getString('mobile99');
+    //print ("mobilecooki");
+    if (mobilecooki!= null)// To check cooki which seted in App
+        {
+          setState(() {
+            success=true;
+          });
+
+    }
     var res = await http.post(phpurl, body: {
-      "ver1appSend":"0",
+      "ver1appSend":"2",
       "ver2appSend":"0",
-      "ver3appSend":"1",
+      "ver3appSend":"0",
     });
     //print("ver1app is:");
     //SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -82,17 +94,25 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     //print (mobileCooki);
     //var data =res.body;
     print(res.body);
-    if (res.body == "789")// To check cooki which seted in App
+    print(success);
+    if (res.body == "789" && success== true)// To check cooki which seted in App
         {
-          Navigator.push(context,MaterialPageRoute(builder: (context) => CheckMobileUser()));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => Desk_first_page()));
         }
-    else
+    else if(res.body == "789" && success== false)// version aright while mobile isn't defined
       {
         //print("new version exist on the web please  check");
-        Navigator.push(context,MaterialPageRoute(builder: (context) => VersionAlarm()));
+        Navigator.push(context,MaterialPageRoute(builder: (context) => Desk_first_page()));
        // Navigator.push(context,MaterialPageRoute(builder: (context) => ShowVersion()));
 
       }
+    else if(res.body == "456" && success== true)
+      {
+        Navigator.push(context,MaterialPageRoute(builder: (context) => VersionAlarm()));// in this part has confilct version
+      }
+    else{
+      Navigator.push(context,MaterialPageRoute(builder: (context) => VersionAlarm1()));
+    }
   }
   @override
   Widget build(BuildContext context) {

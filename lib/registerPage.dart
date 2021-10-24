@@ -6,7 +6,7 @@ import 'smspage.dart';
 import 'test123.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'header.dart';
-import 'footer.dart';
+import 'footer_first.dart';
 import 'package:toast/toast.dart';
 import 'links.dart';
 
@@ -76,13 +76,15 @@ class RegInfState extends State <RegInf> {
       //print("body:"+res.body); //print raw response on console
       //var data = json.decode(res.body); //decoding json to array
       if(123==123) {
-      int code=hashCode;
-      print("hash cod is:");
-      print(code);
+      //int code=hashCode;
+      //print("hash cod is:");
+      //print(code);
         setState(() {
           msg="mobarak";
           // Navigator.push(context, MaterialPageRoute(builder: (_) => shenasnameh()));
-          Navigator.push(context,MaterialPageRoute(builder: (context) => sms(_mobilectl.text, _namectl.text, code)));
+         // Navigator.push(context,MaterialPageRoute(builder: (context) => sms(_mobilectl.text, _namectl.text, code)));
+          Navigator.push(context,MaterialPageRoute(builder: (context) => sms(_mobilectl.text, _namectl.text)));
+
         });
       }
       else{
@@ -159,7 +161,7 @@ class RegInfState extends State <RegInf> {
                       children: <Widget>[
                         Container(
                           // width: s.width/5,
-                          child: footerme(),
+                          child: footerme2(),
                         ),
                         Container(
                           // width: s.width/5,
@@ -172,7 +174,7 @@ class RegInfState extends State <RegInf> {
                       ]
                   ),
                         height: 60.0,
-                        color: Colors.red,
+                        color: Colors.purple,
             ),
         )
     );
@@ -241,10 +243,10 @@ class RegInfState extends State <RegInf> {
                         controller: _mobilectl,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: "موبایل:",
+                            hintText: "مانند 09143805648:",
                             labelText: "موبایل:"
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.phone,
                         validator: (val){
                           if (val.length <=10)
                             return "خطا: تعداد کارکتر کمتر از 11";

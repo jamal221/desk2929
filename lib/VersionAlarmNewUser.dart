@@ -5,19 +5,23 @@ import 'package:http/http.dart' as http;
 import 'test123.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
-import 'footer_first.dart';
+import 'footer.dart';
 import 'CheckMobile.dart';
 import 'package:desk2929/Show_Version.dart';
 import 'DownLoadFile4.dart';
-import 'CheckVersion.dart';
-import 'registerPage.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'links.dart';
 
+
 import 'header.dart';
+test123 t=new test123();
+//final String _fileUrl =t.getaddress()+"/files/newest_version.apk";
+final String _fileUrl ="http://desk2929.ir/versions/newest_version.apk";
 //import package file manually
 String msg="درحال ارسال پبام...";
 String ver1Db, ver2DB, ver3DB;
-class Desk_first_page extends StatelessWidget {
+class VersionAlarm1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -43,10 +47,12 @@ class WriteSQLdataState extends State<UserInfData> {
   TextEditingController msgctl = TextEditingController();
 
   //text controller for TextField
+  //test123 t=new test123();
 
-  bool error, sending, success;
-  String msg, msgBtn, DInter, msg1;
-  test123 t=new test123();
+
+  bool error, sending, success, shouldEnable;
+  String msg, msgBtn, mobilecooki,msg_new_user;
+
   String phpurl;
   var s;
   // do not use http://localhost/ for your local
@@ -58,32 +64,51 @@ class WriteSQLdataState extends State<UserInfData> {
     error = true;
     sending = false;
     success = false;
-    msg="این اپلیکشن کاملا مستقل و ارتباطی با اداره ندارد، هدف از ان ارائه خدمات به صورت غیر حضوری و دلخواه است، برای درخواست رمز باید عکس کارت ملی یا شناسنامه خود را ارسال نمایید. همچنین برای استفاده بهینه از این اپلیکشن باید موبایل خود را بدقت درج نمایید.";
-    msg1="موفق باشید.";
+    shouldEnable=false;
+    msg_new_user="شما کاربری هستید که می خواهید ورژن قدیمی در اولین مرحله نصب کنید درحالی که باید ابتدا نسخه جدید را دانلود و نصب نمایید";
     super.initState();
+    //CheckMobile();
+    BackButtonInterceptor.add(myInterceptor);
     getVersion();
-    CheckInter();
+
+    //CheckUser();
   }
-  Future<void> CheckInter() async {
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    //print("BACK BUTTON!"); // Do some stuff.
+    //Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+    return true;
+  }
+  Future<void> _download() async {
+    await canLaunch(_fileUrl) ? await launch(_fileUrl) : throw 'عدم وجود فایل در مسیر $_fileUrl';
+  }
+  @override
+    /*Future<void> CheckUser() async {
     //phpurl = t.getaddress()+"MessagReg.php";
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    DInter= prefs.getString('DInterUser');
+    mobilecooki= prefs.getString('mobile99');
     //print (emailCooki);
-    if (DInter!= null)// To check cooki which seted in App
+    if (mobilecooki!= null)// To check cooki which seted in App
         {
-          print(DInter);
-           Navigator.push(context,MaterialPageRoute(builder: (context) => regUserkk()));
+          msg="شما از طریق موبایل"+mobilecooki+ "واردسیستم شده اید";
 
-         setState(() {
+          Toast.show(msg, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
+          setState(() {
             sending=true;
             error= false;
           });
         }
     else
       {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        //Return String
-        await prefs.setString('DInterUser', "jamal Azizbeigi");
+        msg="شما هنوز در سیستم ثبت نام نکرده اید";
+
+        Toast.show(msg, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
 
         setState(() {
           sending=true;
@@ -92,7 +117,7 @@ class WriteSQLdataState extends State<UserInfData> {
       }
 
 
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -110,9 +135,9 @@ class WriteSQLdataState extends State<UserInfData> {
 
                   SizedBox(height: 10,),
                   Container(
-                    height: 100,
-                    color: Color.fromARGB(255, 230, 230, 230),
-                    //child: header()
+                      height: 100,
+                      color: Colors.white,
+                      //child: header()
                     child: Image.asset('assets/images/Banner_desk.png', scale: 1,),
                   ),
                   Container(
@@ -133,7 +158,7 @@ class WriteSQLdataState extends State<UserInfData> {
                     child: Column(
                       children: <Widget>[
                         Center(
-                          child: Text("صفحه ی ورود اولیه",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
+                          child: Text(" بررسی ورژن کاربری که ثبت نام نکرده",style: TextStyle(color: Colors.white,fontSize: 22.0,fontWeight: FontWeight.bold),),
                         ),
 
                         Divider(color: Colors.white,),
@@ -148,27 +173,31 @@ class WriteSQLdataState extends State<UserInfData> {
                                   padding: EdgeInsets.all(20),
                                   child: Column(children: <Widget>[
                                     SizedBox(height: 10),
-
-
                                     Container(
                                       margin: EdgeInsets.only(top: 20),
                                       width: s.width*0.8,
-                                      child: Text(msg+""+msg1),
+                                      child: Text(msg_new_user),
                                     ),
+
                                     Container(
                                       width: s.width*0.7,
                                       padding: EdgeInsets.only(right: 100,top:5),
                                       child:new RaisedButton(
-                                        child: new Text("موارد بالا را خوانده و ورود به برنامه",
-                                        ),
-                                        color: Colors.deepOrange,
+                                        child: new Text("دانلود ورژن جدید"),
                                         onPressed: (){
-                                          Navigator.push(context,MaterialPageRoute(builder: (context) => regUserkk()));
+                                          //Navigator.push(context,MaterialPageRoute(builder: (context) => DownLoadFile4()));
+                                          _download();
                                         },
+                                        color: Colors.deepOrange,
                                         highlightColor: Colors.white,
                                       ),
                                     ),
 
+                                    Container(
+                                      //padding: const EdgeInsets.only(right: 5),
+                                      width: s.width*0.70,
+                                      child:   Text('ورژن جدید:  '+'$ver1Db'+'.'+'$ver2DB'+'.'+'$ver3DB',style: TextStyle(color: Colors.black,fontSize: 18.0),textAlign: TextAlign.start,),
+                                    ),
 
                                   ],
                                   )
@@ -195,8 +224,8 @@ class WriteSQLdataState extends State<UserInfData> {
                 children: <Widget>[
                   Container(
                     //width: s.width,
-                    child: footerme2(),
-                    //child:Image.asset('assets/images/Banner_desk.png', scale: 1,),
+                    //child: footerme(),
+                    child: Image.asset('assets/images/Banner_desk.png', scale: 1,),
                   ),
 
                 ]
@@ -216,8 +245,8 @@ class WriteSQLdataState extends State<UserInfData> {
       //String check1=json.decode(response.body);
       //print(check1);
       final items1 = json.decode(response.body);
-      print ("items1");
-      print (items1[0]);
+      //print ("items1");
+      // print (items1[2]);
       setState(() {
         ver1Db=items1[0].toString();
         ver2DB=items1[1].toString();

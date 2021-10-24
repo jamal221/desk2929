@@ -7,6 +7,8 @@ import 'test123.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'header.dart';
 import 'footer.dart';
+import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'links.dart';
 
 test123 t=new test123();
 class UploadImage extends StatelessWidget {
@@ -45,6 +47,22 @@ class UploadImageDemoState extends State<UploadImageDemo> {
   String uploadEndPoint = t.getaddress()+"UploadImage.php";
   //Uri uploadEndPoint = Uri.http(t.getaddress(), 'UploadImage.php');
   //static final String uploadEndPoint =      'http://localhost/flutter_test/upload_image.php';
+  @override
+  void initState() {
+    super.initState();
+    BackButtonInterceptor.add(myInterceptor);
+  }
+  @override
+  void dispose() {
+    BackButtonInterceptor.remove(myInterceptor);
+    super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    //print("BACK BUTTON!"); // Do some stuff.
+    Navigator.push(context,MaterialPageRoute(builder: (context) => linkpage()));
+    return true;
+  }
   Future<File> file;
   //File file;
   String status = '';
@@ -184,7 +202,7 @@ String mobileCooki;
                 ]
             ),
             height: 60.0,
-            color: Colors.red,
+            color: Colors.purple,
           ),
         )
     )

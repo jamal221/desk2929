@@ -98,7 +98,7 @@ class _ticketlist1State extends State<ticketlist1> {
               ]
           ),
           height: 60.0,
-          color: Colors.red,
+          color: Colors.purple,
         ),
       ),
     );
