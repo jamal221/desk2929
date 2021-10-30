@@ -63,7 +63,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     msg = "";
     int ver1app=2;
     int ver2app=0;
-    int ver3app=0;
+    int ver3app=1;
     msgBtn="ثبت پیام جدید";
     super.initState();
     this.sendData();
@@ -85,7 +85,7 @@ class WriteSQLdataState extends State<WriteSQLdata> {
     var res = await http.post(phpurl, body: {
       "ver1appSend":"2",
       "ver2appSend":"0",
-      "ver3appSend":"0",
+      "ver3appSend":"1",
     });
     //print("ver1app is:");
     //SharedPreferences prefs = await SharedPreferences.getInstance();

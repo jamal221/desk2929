@@ -9,6 +9,7 @@ import 'package:toast/toast.dart';
 import 'test123.dart';
 import 'footer.dart';
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:emoji_pick/emoji_pick.dart';
 import 'links.dart';
 
 test123 t=new test123();
@@ -102,147 +103,147 @@ class _ticketlist1State extends State<ticketlist1> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 30,),
+                Container(
+                  //height: 50,
+                  //color: Color.fromARGB(255, 230, 230, 230),
+                    color: Colors.white,
+                    child: header()
+                ),
+                Container(
 
 
-          children: <Widget>[
-            SizedBox(height: 30,),
-            Container(
-                //height: 50,
-                //color: Color.fromARGB(255, 230, 230, 230),
-              color: Colors.white,
-                child: header()
-            ),
-            Container(
+                  height: (MediaQuery.of(context).size.height)-170,
+                  decoration: const BoxDecoration(
+                    //image: DecorationImage(
+                    //image: ExactAssetImage("assets/images/ic_launcher.png"),
+                    //fit: BoxFit.fill
+                    //),
+                    gradient: LinearGradient(
+                      begin: Alignment.center,
+                      end:
+                      Alignment.centerRight, // 10% of the width, so there are ten blinds.
+                      colors: <Color>[
 
-
-                      height: (MediaQuery.of(context).size.height)-170,
-                      decoration: const BoxDecoration(
-                        //image: DecorationImage(
-                            //image: ExactAssetImage("assets/images/ic_launcher.png"),
-                            //fit: BoxFit.fill
-                        //),
-                        gradient: LinearGradient(
-                          begin: Alignment.center,
-                          end:
-                          Alignment.centerRight, // 10% of the width, so there are ten blinds.
-                          colors: <Color>[
-
-                            Color.fromARGB(120, 39, 206, 137),
-                            Color.fromARGB(255, 28, 30, 79)
-                          ], // red to yellow
-                          tileMode: TileMode.mirror, // repeats the gradient over the canvas
-                        ),
+                        Color.fromARGB(120, 39, 206, 137),
+                        Color.fromARGB(255, 28, 30, 79)
+                      ], // red to yellow
+                      tileMode: TileMode.mirror, // repeats the gradient over the canvas
+                    ),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Text("لیست تیکت ها",style: TextStyle(color: Colors.black87,fontSize: 15.0,fontWeight: FontWeight.bold),),
                       ),
-                child: Column(
-                              children: <Widget>[
-                                Center(
-                                  child: Text("لیست تیکت ها",style: TextStyle(color: Colors.black87,fontSize: 15.0,fontWeight: FontWeight.bold),),
+                      Center(
+                        child: Text("در صورت افزایش تیکت ها بکمک اسکرول صفحه را پیمایش نمایید.",style: TextStyle(color: Colors.black87,fontSize: 15.0,fontWeight: FontWeight.bold),),
+                      ),
+
+                      Divider(color: Colors.white,),
+
+                      SizedBox(height: 2,),
+                      getrow(),
+
+
+                    ],
+                  ),
+                ),
+                Container(
+                    color: Colors.transparent,
+                    //child: footerme(),
+                    //child: Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //children: <Widget>[
+                    //Container(
+                    // padding: EdgeInsets.only(top: 16,left: 16,right: 16),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Container(
+                              child:InkWell(
+                                onTap: () {
+                                  sendData();
+                                  ticketlist();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (BuildContext context) => super.widget)
+                                  );
+
+                                },
+                                child: Image.asset('assets/images/chat.png',
+                                  width: 50,
+                                  height: 50,
                                 ),
-                                Center(
-                                  child: Text("در صورت افزایش تیکت ها بکمک اسکرول صفحه را پیمایش نمایید.",style: TextStyle(color: Colors.black87,fontSize: 15.0,fontWeight: FontWeight.bold),),
+                              )
+
+                          ),
+                          Container(
+
+                              decoration: BoxDecoration(
+                                  color:  Colors.indigo,
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(10),
+                                      bottom: Radius.circular(10)
+                                  )
+                              ),
+                              width: s.width*0.65,
+                              height: 58.0,
+                              margin: EdgeInsets.only( left: 30),
+                              //color: Color.fromARGB(255, 255, 0, 150),
+                              child: new Scrollbar(
+                                child: TextField(
+                                  maxLines: 20,
+                                  controller: msgctl,
+                                  decoration: InputDecoration(
+                                    hintText: "نوشتن...",
+                                    hintStyle: TextStyle(color: Colors.grey.shade600),
+                                    filled: true,
+                                    fillColor: Colors.grey.shade100,
+                                    contentPadding: EdgeInsets.all(8),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide(
+                                            color: Colors.purple
+                                        )
+                                    ),
+                                  ),
+                                  onSubmitted: (String value){
+                                    print("jamal");
+                                  },
                                 ),
+                              )
+                          ),
 
-                                Divider(color: Colors.white,),
-
-                                SizedBox(height: 2,),
-                                getrow(),
-
-
-                              ],
-              ),
-            ),
-            SizedBox(
-              height: 3,
-            )
-
-          ],
-
-        ),
-
-       bottomNavigationBar: new Container(
-         color: Colors.transparent,
-          //child: footerme(),
-          //child: Row(
-             // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //children: <Widget>[
-                //Container(
-                 // padding: EdgeInsets.only(top: 16,left: 16,right: 16),
-                   child: Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                       children: <Widget>[
-                         Container(
-                           child:InkWell(
-                       onTap: () {
-                         sendData();
-                         ticketlist();
-                         Navigator.pushReplacement(
-                             context,
-                             MaterialPageRoute(
-                                 builder: (BuildContext context) => super.widget)
-                         );
-
-                       },
-                             child: Image.asset('assets/images/chat.png',
-                               width: 50,
-                               height: 50,
-                             ),
-                   )
-
-                         ),
-                         Container(
-
-                             decoration: BoxDecoration(
-                                 color:  Colors.indigo,
-                                 borderRadius: BorderRadius.vertical(
-                                     top: Radius.circular(10),
-                                     bottom: Radius.circular(10)
-                                 )
-                             ),
-                             width: s.width*0.65,
-                             height: 58.0,
-                             margin: EdgeInsets.only( left: 30),
-                             //color: Color.fromARGB(255, 255, 0, 150),
-                           child: new Scrollbar(
-                             child: TextField(
-                               maxLines: 20,
-                               controller: msgctl,
-                             decoration: InputDecoration(
-                               hintText: "نوشتن...",
-                               hintStyle: TextStyle(color: Colors.grey.shade600),
-                               filled: true,
-                               fillColor: Colors.grey.shade100,
-                               contentPadding: EdgeInsets.all(8),
-                               enabledBorder: OutlineInputBorder(
-                                   borderRadius: BorderRadius.circular(20),
-                                   borderSide: BorderSide(
-                                       color: Colors.purple
-                                   )
-                               ),
-                             ),
-                             onSubmitted: (String value){
-                               print("jamal");
-                             },
-                           ),
-                        )
-                         ),
-
-                       ]
-                   )
+                        ]
+                    )
 
                   // width: s.width/5,
                   //child: footerme(),
-               // ),
-              //]
-          //),
+                  // ),
+                  //]
+                  //),
 
-          //color: Colors.purple,
+                  //color: Colors.purple,
+                ),
+                SizedBox(
+                  height: 3,
+                )
+
+              ],
+
+            ),
+          ) ,
         ),
       ),
     );
   }
-
   Widget getrow() {
     if(msgs.length!=0) {
 
@@ -283,10 +284,10 @@ class _ticketlist1State extends State<ticketlist1> {
                                   margin: EdgeInsets.only(right: 15, left: 2),
                                   decoration: BoxDecoration(
                                       color: (msgs[index].type=='1') ? Colors.greenAccent:Colors.amber,
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(10),
-                                      bottom: Radius.circular(10)
-                                    )
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(10),
+                                          bottom: Radius.circular(10)
+                                      )
                                   ),
                                   //padding: const EdgeInsets.only(right: 5),
                                   width: s.width*0.60,
@@ -314,7 +315,7 @@ class _ticketlist1State extends State<ticketlist1> {
                         Container(
                           // if(msgs.msg_admin!='')
                           //{
-                            //color: Color.fromARGB(255, 50, 140, 150),
+                          //color: Color.fromARGB(255, 50, 140, 150),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
