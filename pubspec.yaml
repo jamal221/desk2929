@@ -44,6 +44,7 @@ dependencies:
   connectivity: ^0.4.2
   back_button_interceptor: ^4.4.0
   sizer: ^2.0.13
+  emoji_pick: ^0.1.0
   flutter:
     sdk: flutter
   fluttertoast: ^8.0.7
