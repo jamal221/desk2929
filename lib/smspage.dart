@@ -363,7 +363,7 @@ class SmSPageState extends State <sms1> {
   }*/
   Future<void> sendmsg() async {
     print("mob" + mob);
-    var res = await http.get("http://desk2929.ir/smssss" + "?mobile_user=" +mob); //sending post request with header data
+    var res = await http.get(sms url" + "?mobile_user=" +mob); //sending post request with header data
 
     if (res.statusCode == 200) {
       print("code:" + res.body); //print raw response on console
