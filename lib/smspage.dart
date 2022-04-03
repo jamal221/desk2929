@@ -348,21 +348,10 @@ class SmSPageState extends State <sms1> {
 
   String codesms;
 
-  /* String phpurl2 = "http://127.0.0.1:8000/sms/JamalSMS";
-  Future<void> sendmsg() async {
-    print("mob"+mob);
-
-    //var res = await http.get(url+"?mob="+mob); //sending post request with header data
-    var res = await http.post(phpurl2, body: {
-      "mobile":mob,
-    });
-    print("code:"+res.body); //print raw response on console
-    var code = json.decode(res.body); //decoding json to array
-    print(code);
-    codesms = code.toString();
-  }*/
+  
   Future<void> sendmsg() async {
     print("mob" + mob);
+    // sms url is your sendr url as API which you have to embed here. which for me is kavanegar
     var res = await http.get(sms url" + "?mobile_user=" +mob); //sending post request with header data
 
     if (res.statusCode == 200) {
