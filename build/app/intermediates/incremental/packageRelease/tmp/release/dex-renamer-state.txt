@@ -1,0 +1,7 @@
+#Mon Jan 13 13:03:04 GMT+03:30 2025
+base.0=D\:\\project\\Flutter\\desk2929\\client\\build\\app\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
+base.1=D\:\\project\\Flutter\\desk2929\\client\\build\\app\\intermediates\\dex\\release\\mergeDexRelease\\classes2.dex
+path.0=classes.dex
+path.1=classes2.dex
+renamed.0=classes.dex
+renamed.1=classes2.dex
